@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #calculator {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="calculator">
+    <h2>Comprehensive Calculator</h2>
+    <input type="number" id="num1" placeholder="Enter first number">
+    <input type="number" id="num2" placeholder="Enter second number">
+    <select id="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <button onclick="calculate()">Calculate</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculate() {
+        var num1 = parseFloat(document.getElementById('num1').value);
+        var num2 = parseFloat(document.getElementById('num2').value);
+        let operator = document.getElementById('operator').value;
+        const validOperators = ['+', '-', '*', '/'];
+        let result;
+
+        if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+            document.getElementById('result').textContent = "Error: Both inputs must be numbers!";
+            return;
+        }
+
+        if (!validOperators.includes(operator)) {
+            document.getElementById('result').textContent = "Error: Invalid operator!";
+            return;
+        }
+
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                result = num2 !== 0 ? num1 / num2 : "Error: Division by zero!";
+                break;
+            default:
+                document.getElementById('result').textContent = "Error: Invalid operation!";
+                return;
+        }
+
+        const operationsHistory = [];
+
+        operationsHistory.push({
+            num1: num1,
+            num2: num2,
+            operator: operator,
+            result: result
+        });
+
+        document.getElementById('result').textContent = `Result: ${result}`;
+        console.log("Operations History:", operationsHistory);
+
+        const calculation = {
+            num1: num1,
+            num2: num2,
+            operator: operator,
+            result: result,
+            getDetails: function() {
+                return `Calculation Details: ${this.num1} ${this.operator} ${this.num2} = ${this.result}`;
+            }
+        };
+
+        console.log(calculation.getDetails());
+    }
+
+    function demoLoops() {
+        let i = 0;
+        let arr = [1, 2, 3, 4, 5];
+        let evenSum = 0;
+
+        while (i < arr.length) {
+            if (arr[i] % 2 === 0) {
+                evenSum += arr[i];
+            }
+            i++;
+        }
+
+        console.log("Sum of even numbers using while loop:", evenSum);
+
+        i = 0;
+        do {
+            console.log(`Do-while loop iteration: ${i}`);
+            i++;
+        } while (i < 3);
+    }
+
+    demoLoops();
+
+</script>
+
+</body>
+</html>
